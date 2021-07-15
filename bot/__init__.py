@@ -338,6 +338,66 @@ try:
         UNFINISHED_PROGRESS_STR = '○'
 except KeyError:
     UNFINISHED_PROGRESS_STR = '○'
+ttry:
+    FILENAME_PREFIX = getConfig('FILENAME_PREFIX')
+    if len(FILENAME_PREFIX) == 0:
+        FILENAME_PREFIX = ''
+except KeyError:
+    FILENAME_PREFIX = ''
+try:
+    STATUS_PREFIX = getConfig('STATUS_PREFIX')
+    if len(STATUS_PREFIX) == 0:
+        STATUS_PREFIX = ''
+except KeyError:
+    STATUS_PREFIX = ''
+try:
+    DOWNLOADED_PREFIX = getConfig('DOWNLOADED_PREFIX')
+    if len(DOWNLOADED_PREFIX) == 0:
+        DOWNLOADED_PREFIX = ''
+except KeyError:
+    DOWNLOADED_PREFIX = ''
+try:
+    UPLOADED_PREFIX = getConfig('UPLOADED_PREFIX')
+    if len(UPLOADED_PREFIX) == 0:
+        UPLOADED_PREFIX = ''
+except KeyError:
+    UPLOADED_PREFIX = ''
+try:
+    SPEED_PREFIX = getConfig('SPEED_PREFIX')
+    if len(SPEED_PREFIX) == 0:
+        SPEED_PREFIX = ''
+except KeyError:
+    SPEED_PREFIX = ''
+try:
+    ETA_PREFIX = getConfig('ETA_PREFIX')
+    if len(ETA_PREFIX) == 0:
+        ETA_PREFIX = ''
+except KeyError:
+    ETA_PREFIX = ''
+try:
+    SEEDERS_PREFIX = getConfig('SEEDERS_PREFIX')
+    if len(SEEDERS_PREFIX) == 0:
+        SEEDERS_PREFIX = ''
+except KeyError:
+    SEEDERS_PREFIX = ''
+try:
+    PEERS_PREFIX = getConfig('PEERS_PREFIX')
+    if len(PEERS_PREFIX) == 0:
+        PEERS_PREFIX = ''
+except KeyError:
+    PEERS_PREFIX = ''
+try:
+    TO_STOP_PREFIX = getConfig('TO_STOP_PREFIX')
+    if len(TO_STOP_PREFIX) == 0:
+        TO_STOP_PREFIX = ''
+except KeyError:
+    TO_STOP_PREFIX = ''
+try:
+    USER_PREFIX = getConfig('USER_PREFIX')
+    if len(USER_PREFIX) == 0:
+        USER_PREFIX = ''
+except KeyError:
+    USER_PREFIX = ''
 updater = tg.Updater(token=BOT_TOKEN)
 bot = updater.bot
 dispatcher = updater.dispatcher
