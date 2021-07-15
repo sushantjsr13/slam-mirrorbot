@@ -338,7 +338,7 @@ try:
         UNFINISHED_PROGRESS_STR = '○'
 except KeyError:
     UNFINISHED_PROGRESS_STR = '○'
-ttry:
+try:
     FILENAME_PREFIX = getConfig('FILENAME_PREFIX')
     if len(FILENAME_PREFIX) == 0:
         FILENAME_PREFIX = ''
