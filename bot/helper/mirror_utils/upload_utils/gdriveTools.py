@@ -126,7 +126,7 @@ class GoogleDriveHelper:
         try:
             file_id = self.getIdFromUrl(link)
         except (KeyError,IndexError):
-            msg = "Google drive ID could not be found in the provided link"
+            msg = "Google Drive ID could not be found in the provided link"
             return msg
         msg = ''
         try:
@@ -298,7 +298,7 @@ class GoogleDriveHelper:
                 reason = json.loads(err.content).get('error').get('errors')[0].get('reason')
                 if reason == 'userRateLimitExceeded' or reason == 'dailyLimitExceeded':
                     if USE_SERVICE_ACCOUNTS:
-                        if self.sa_count > self.service_account_count:
+                        if self.sa_count == self.service_account_count:
                             self.is_cancelled = True
                             raise err
                         else:
@@ -426,11 +426,7 @@ class GoogleDriveHelper:
             err = str(err).replace('>', '').replace('<', '')
             LOGGER.error(err)
             if "User rate limit exceeded" in str(err):
-                if meta.get("mimeType") == self.__G_DRIVE_DIR_MIME_TYPE:
-                    msg += "\nUser rate limit exceeded.\nThis folder is empty or missing files/folders"
-                    return msg, InlineKeyboardMarkup(buttons.build_menu(2))
-                else:
-                    msg = "User rate limit exceeded."
+                msg = "User rate limit exceeded."
             elif "File not found" in str(err):
                 msg = "File not found."
             else:
@@ -815,7 +811,7 @@ class GoogleDriveHelper:
                     reason = json.loads(err.content).get('error').get('errors')[0].get('reason')
                     if reason == 'downloadQuotaExceeded' or reason == 'dailyLimitExceeded':
                         if USE_SERVICE_ACCOUNTS:
-                            if self.sa_count > self.service_account_count:
+                            if self.sa_count == self.service_account_count:
                                 self.is_cancelled = True
                                 raise err
                             else:

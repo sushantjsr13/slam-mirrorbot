@@ -51,7 +51,11 @@
         "required": false
       },
       "AUTHORIZED_CHATS": {
-        "description": "Fill User ID and Chat ID of you want to authorize.",
+        "description": "Fill User ID and Chat ID of you want to authorize, Seprate them with space.",
+        "required": false
+      },
+      "SUDO_USERS": {
+        "description": "Fill user_id (not username) of you want to sudoers, Seprate them with space.",
         "required": false
       },
       "INDEX_URL": {
@@ -188,6 +192,16 @@
       },
       "BUTTON_SIX_URL": {
         "description": "Fill your URL if you are using extra buttons.",
+        "required": false
+      },
+      "FINISHED_PROGRESS_STR": {
+        "description": "Single character for finished progress",
+        "value": "●",
+        "required": false
+      },
+      "UNFINISHED_PROGRESS_STR": {
+        "description": "Single character for unfinished progress",
+        "value": "○",
         "required": false
       }
     },
