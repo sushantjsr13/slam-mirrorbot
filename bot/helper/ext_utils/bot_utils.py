@@ -5,7 +5,8 @@ import time
 
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot import download_dict, download_dict_lock, FINISHED_PROGRESS_STR, UNFINISHED_PROGRESS_STR
-
+from bot import FILENAME_PREFIX, STATUS_PREFIX, DOWNLOADED_PREFIX, UPLOADED_PREFIX, SPEED_PREFIX
+from bot import ETA_PREFIX, SEEDERS_PREFIX, PEERS_PREFIX, TO_STOP_PREFIX, USER_PREFIX
 LOGGER = logging.getLogger(__name__)
 
 MAGNET_REGEX = r"magnet:\?xt=urn:btih:[a-zA-Z0-9]*"
@@ -100,25 +101,26 @@ def get_readable_message():
     with download_dict_lock:
         msg = ""
         for download in list(download_dict.values()):
-            msg += f"<b>Filename:</b> <code>{download.name()}</code>"
-            msg += f"\n<b>Status:</b> <i>{download.status()}</i>"
+            msg += f"<b>{FILENAME_PREFIX}Filename:</b> <code>{download.name()}</code>"
+            msg += f"\n<b>{STATUS_PREFIX}Status:</b> <i>{download.status()}</i>"
             if download.status() != MirrorStatus.STATUS_ARCHIVING and download.status() != MirrorStatus.STATUS_EXTRACTING:
                 msg += f"\n<code>{get_progress_bar_string(download)} {download.progress()}</code>"
                 if download.status() == MirrorStatus.STATUS_DOWNLOADING:
-                    msg += f"\n<b>Downloaded:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                    msg += f"\n<b>{DOWNLOADED_PREFIX}Downloaded:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                 else:
-                    msg += f"\n<b>Uploaded:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                msg += f"\n<b>Speed:</b> {download.speed()}" \
-                        f", <b>ETA:</b> {download.eta()} "
+                    msg += f"\n<b>{UPLOADED_PREFIX}Uploaded:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                msg += f"\n<b>{SPEED_PREFIX}Speed:</b> {download.speed()}" \
+                        f", <b>{ETA_PREFIX}ETA:</b> {download.eta()} "
                 # if hasattr(download, 'is_torrent'):
                 try:
-                    msg += f"\n<b>Seeders:</b> {download.aria_download().num_seeders}" \
-                        f" | <b>Peers:</b> {download.aria_download().connections}"
+                    msg += f"\n<b>{SEEDERS_PREFIX}Seeders:</b> {download.aria_download().num_seeders}" \
+                        f" | <b>{PEERS_PREFIX}Peers:</b> {download.aria_download().connections}"
                 except:
                     pass
-                msg += f'\n<b>User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
+                msg += f'\n<b>{USER_PREFIX}User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
+                # msg += f'\n<b>{USER_PREFIX}User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
             if download.status() == MirrorStatus.STATUS_DOWNLOADING:
-                msg += f"\n<b>To Stop:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                msg += f"\n<b>{TO_STOP_PREFIX}To Stop:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             msg += "\n\n"
         return msg
 
