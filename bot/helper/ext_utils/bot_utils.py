@@ -131,18 +131,18 @@ def get_readable_message():
                             msg += f"\n<b>Cloned:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                     else:
                         msg += f"\n<b>{UPLOADED_PREFIX}Uploaded:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                  msg += f"\n<b>{SPEED_PREFIX}Speed:</b> {download.speed()}"
-                  msg += f"\n<b>{ETA_PREFIX}ETA:</b> {download.eta()}"
-                  # if hasattr(download, 'is_torrent'):
-                  try:
-                      msg += f"\n<b>{SEEDERS_PREFIX}Seeders:</b> {download.aria_download().num_seeders}" \
-                          f" | <b>{PEERS_PREFIX}Peers:</b> {download.aria_download().connections}"
-                  except:
-                      pass
-                  msg += f'\n<b>{USER_PREFIX}User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
-                # msg += f'\n<b>{USER_PREFIX}User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
-                  msg += f"\n<b>{TO_STOP_PREFIX}To Stop:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-                msg += "\n\n"
+                    msg += f"\n<b>{SPEED_PREFIX}Speed:</b> {download.speed()}"
+                    msg += f"\n<b>{ETA_PREFIX}ETA:</b> {download.eta()}"
+                    # if hasattr(download, 'is_torrent'):
+                    try:
+                        msg += f"\n<b>{SEEDERS_PREFIX}Seeders:</b> {download.aria_download().num_seeders}" \
+                            f" | <b>{PEERS_PREFIX}Peers:</b> {download.aria_download().connections}"
+                    except:
+                        pass
+                    msg += f'\n<b>{USER_PREFIX}User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'
+                  # msg += f'\n<b>{USER_PREFIX}User:</b> <a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a> (<code>{download.message.from_user.id}</code>)'
+                    msg += f"\n<b>{TO_STOP_PREFIX}To Stop:</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                    msg += "\n\n"
                 if STATUS_LIMIT is not None:
                     if INDEX >= COUNT + STATUS_LIMIT:
                         break
