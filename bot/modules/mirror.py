@@ -274,10 +274,19 @@ def _mirror(bot, update, isTar=False, extract=False):
                 file = i
                 break
 
-        reply_text = reply_to.text.split('\n')[0]
-        if bot_utils.is_magnet(reply_text):
-            link = reply_text
-            
+        if reply_to.text is not None:
+            reply_text = reply_to.text.split('\n')
+            try:
+                link, ussr, pssw = reply_text[0], \
+                                   urllib.parse.quote(reply_text[1], safe=''), \
+                                   urllib.parse.quote(reply_text[2], safe='')
+                if bot_utils.is_url(link) and ussr != '' and pssw != '':
+                    link = link.split("://", maxsplit=1)
+                    link = f'{link[0]}://{ussr}:{pssw}@{link[1]}'
+            except IndexError:
+                if bot_utils.is_magnet(reply_text[0]) or bot_utils.is_url(reply_text[0]):
+                    link = reply_to.text.split('\n')[0]
+
         if not bot_utils.is_url(link) and not bot_utils.is_magnet(link) or len(link) == 0:
             if file is not None:
                 if file.mime_type != "application/x-bittorrent":
